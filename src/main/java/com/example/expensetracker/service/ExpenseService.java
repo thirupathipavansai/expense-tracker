@@ -5,6 +5,6 @@ import com.example.expensetracker.entity.Expense;
 import com.example.expensetracker.request.ExpenseWebRequest;
 
 public interface ExpenseService {
-  BaseResponse addExpense(ExpenseWebRequest expense);
+  Expense addExpense(ExpenseWebRequest expense);
 }
 
