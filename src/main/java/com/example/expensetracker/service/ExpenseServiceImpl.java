@@ -23,8 +23,8 @@ public class ExpenseServiceImpl implements ExpenseService {
   ExpenseRepository expenseRepository;
 
   @Override
-  @Cacheable(key = "#expense", value = "expense", unless =  "#result == null")
-  public BaseResponse addExpense(ExpenseWebRequest expenseWebRequest) {
+  @Cacheable(value = "expenseCache", key = "'expense-' + #expenseWebRequest.username")
+  public Expense addExpense(ExpenseWebRequest expenseWebRequest) {
     if (Objects.nonNull(expenseWebRequest)) {
       Expense expense = new Expense();
       BeanUtils.copyProperties(expenseWebRequest, expense);
@@ -33,9 +33,9 @@ public class ExpenseServiceImpl implements ExpenseService {
       expense.setCreatedDate(currentDate.toString());
       log.info("Saving expense {} ", expense);
       expenseRepository.save(expense);
-      return new BaseResponse(true, null, null);
+      return expense; // Return the saved Expense object.
     }
-    return new BaseResponse(false, ExpenseErroMessage.EXPENSE_CANNOT_BE_NULL.getDesc(),
-        ExpenseErroMessage.EXPENSE_CANNOT_BE_NULL.getCode());
+    return null; // Return null when expenseWebRequest is null.
   }
+
 }
