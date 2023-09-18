@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.example.expensetracker.BaseResponse;
@@ -22,6 +23,7 @@ public class ExpenseServiceImpl implements ExpenseService {
   ExpenseRepository expenseRepository;
 
   @Override
+  @Cacheable(key = "#expense", value = "expense", unless =  "#result == null")
   public BaseResponse addExpense(ExpenseWebRequest expenseWebRequest) {
     if (Objects.nonNull(expenseWebRequest)) {
       Expense expense = new Expense();
