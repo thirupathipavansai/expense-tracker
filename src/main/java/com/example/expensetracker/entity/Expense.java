@@ -56,6 +56,7 @@ public class Expense {
   private String Description;
 
   @Column
+  @Enumerated(EnumType.STRING)
   private Month month;
 
   @Column

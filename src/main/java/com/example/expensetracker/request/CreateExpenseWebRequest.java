@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Validated
-public class ExpenseWebRequest {
+public class CreateExpenseWebRequest {
 
 
 
