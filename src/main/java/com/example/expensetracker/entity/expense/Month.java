@@ -1,4 +1,4 @@
-package com.example.expensetracker.entity;
+package com.example.expensetracker.entity.expense;
 
 public enum Month {
   JANUARY("JANUARY"), FEBRUARY("FEBRUARY"), MARCH("MARCH"), APRIL("APRIL"), MAY("MAY"), JUNE("JUNE"), JULY(

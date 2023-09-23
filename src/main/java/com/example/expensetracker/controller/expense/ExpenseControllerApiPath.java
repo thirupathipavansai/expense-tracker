@@ -1,4 +1,4 @@
-package com.example.expensetracker.controller;
+package com.example.expensetracker.controller.expense;
 
 public class ExpenseControllerApiPath {
   public static final String BASE_PATH = "/expense";

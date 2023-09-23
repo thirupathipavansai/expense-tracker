@@ -1,12 +1,10 @@
-package com.example.expensetracker.service;
-
-import javax.persistence.ManyToMany;
+package com.example.expensetracker.service.expense;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.example.expensetracker.entity.Expense;
-import com.example.expensetracker.entity.Month;
+import com.example.expensetracker.entity.expense.Expense;
+import com.example.expensetracker.entity.expense.Month;
 import com.example.expensetracker.request.CreateExpenseWebRequest;
 import com.example.expensetracker.request.UpdateExpenseWebRequest;
 

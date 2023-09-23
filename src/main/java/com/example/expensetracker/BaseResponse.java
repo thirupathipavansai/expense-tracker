@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class BaseResponse implements Serializable {
   private static final long serialVersionUID = -1081465993575144212L;
   private boolean success;

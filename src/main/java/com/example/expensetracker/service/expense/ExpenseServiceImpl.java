@@ -1,14 +1,9 @@
-package com.example.expensetracker.service;
+package com.example.expensetracker.service.expense;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +13,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.expensetracker.entity.Expense;
-import com.example.expensetracker.entity.Month;
+import com.example.expensetracker.entity.expense.Expense;
+import com.example.expensetracker.entity.expense.Month;
 import com.example.expensetracker.repository.ExpenseRepository;
 import com.example.expensetracker.request.CreateExpenseWebRequest;
 import com.example.expensetracker.request.UpdateExpenseWebRequest;

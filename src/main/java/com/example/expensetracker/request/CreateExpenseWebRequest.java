@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.example.expensetracker.entity.Month;
-import com.example.expensetracker.entity.PaymentType;
+import com.example.expensetracker.entity.expense.Month;
+import com.example.expensetracker.entity.expense.PaymentType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
