@@ -1,4 +1,4 @@
-package com.example.expensetracker.entity;
+package com.example.expensetracker.entity.expense;
 
 public class ExpenseFieldName {
 
