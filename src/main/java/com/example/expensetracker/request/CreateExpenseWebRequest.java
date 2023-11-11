@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.example.expensetracker.entity.category.CategoryName;
 import com.example.expensetracker.entity.expense.Month;
 import com.example.expensetracker.entity.expense.PaymentType;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Validated
 public class CreateExpenseWebRequest {
-
 
 
   @NotNull
@@ -35,4 +35,7 @@ public class CreateExpenseWebRequest {
 
   @NotNull(message = "Username cannot be empty")
   private String username;
+
+  @NotNull(message = "Category Cannot be empty")
+  private CategoryName expenseCategory;
 }
