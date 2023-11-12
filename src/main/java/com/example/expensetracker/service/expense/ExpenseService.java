@@ -1,5 +1,8 @@
 package com.example.expensetracker.service.expense;
 
+import java.io.IOException;
+
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +18,7 @@ public interface ExpenseService {
    * @param expense
    * @return
    */
-  Expense addExpense(CreateExpenseWebRequest expense);
+  Expense addExpense(CreateExpenseWebRequest expense) throws IOException, SolrServerException;
 
   /**
    * update existing expense
