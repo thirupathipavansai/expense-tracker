@@ -51,6 +51,8 @@ public class ExpenseServiceImpl implements ExpenseService {
   @Cacheable(value = "expenseCache", key = "'expense-' + #expenseWebRequest.username")
   @Transactional
   public Expense addExpense(CreateExpenseWebRequest expenseWebRequest) throws IOException, SolrServerException {
+
+    //TODO need to refractor this code as its giving stack overflow error
     if (Objects.nonNull(expenseWebRequest)) {
       Expense expense = new Expense();
       BeanUtils.copyProperties(expenseWebRequest, expense);
@@ -64,15 +66,15 @@ public class ExpenseServiceImpl implements ExpenseService {
       expense.setCreatedBy(expenseWebRequest.getUsername());
       LocalDate currentDate = LocalDate.now();
       expense.setCreatedDate(currentDate.toString());
-      log.info("Saving expense {} ", expense);
+      //      log.info("Saving expense {} ", expense);
+      expenseRepository.save(expense);
       try {
         SolrInputDocument solrInputDocument1 = getExpenseSolrDocument(expense);
         cloudSolrClient.add(solrInputDocument1);
         cloudSolrClient.commit();
-      }catch (SolrServerException b){
+      } catch (SolrServerException b) {
         System.out.println("Exception : " + b);
       }
-      expenseRepository.save(expense);
       return expense; // Return the saved Expense object.
     }
     return null; // Return null when expenseWebRequest is null.
@@ -80,13 +82,13 @@ public class ExpenseServiceImpl implements ExpenseService {
 
   private SolrInputDocument getExpenseSolrDocument(Expense expense) {
     SolrInputDocument solrInputDocument = new SolrInputDocument();
-    solrInputDocument.setField(ExpenseSolrFieldNames.PAYMENT_TYPE, expense.getPaymentType());
+    solrInputDocument.setField(ExpenseSolrFieldNames.PAYMENT_TYPE, expense.getPaymentType().name());
     solrInputDocument.setField(ExpenseSolrFieldNames.AMOUNT, expense.getAmount());
-    solrInputDocument.setField(ExpenseSolrFieldNames.CATEGORY, expense.getCategory());
+    solrInputDocument.setField(ExpenseSolrFieldNames.CATEGORY, expense.getCategory().getCategoryName());
     solrInputDocument.setField(ExpenseSolrFieldNames.CREATED_BY, expense.getCreatedBy());
     solrInputDocument.setField(ExpenseSolrFieldNames.CREATED_DATE, expense.getCreatedDate());
     solrInputDocument.setField(ExpenseSolrFieldNames.DESCRIPTION, expense.getDescription());
-    solrInputDocument.setField(ExpenseSolrFieldNames.MONTH, expense.getMonth());
+    solrInputDocument.setField(ExpenseSolrFieldNames.MONTH, expense.getMonth().name());
     return solrInputDocument;
   }
 

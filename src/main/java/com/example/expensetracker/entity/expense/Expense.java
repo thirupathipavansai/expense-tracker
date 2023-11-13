@@ -67,7 +67,7 @@ public class Expense  implements Serializable {
   private Month month;
 
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "category_name",referencedColumnName = "category_name")
   private ExpenseCategory category;
 
