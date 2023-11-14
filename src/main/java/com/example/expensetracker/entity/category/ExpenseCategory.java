@@ -19,7 +19,7 @@ import lombok.Data;
 @Entity
 @Table
 @Data
-public class ExpenseCategory implements Serializable {
+public class ExpenseCategory implements  Serializable {
 
   private static final long serialVersionUID = 820649618149840021L;
   @Column
