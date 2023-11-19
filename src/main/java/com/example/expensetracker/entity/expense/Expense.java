@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EnableJpaAuditing
-public class Expense  implements Serializable {
+public class Expense implements Serializable {
 
   private static final long serialVersionUID = 3964630884707812925L;
   @Id
@@ -66,9 +66,12 @@ public class Expense  implements Serializable {
   @Enumerated(EnumType.STRING)
   private Month month;
 
+  @Column
+  private String expenseId;
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-  @JoinColumn(name = "category_name",referencedColumnName = "category_name")
+
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "category_name", referencedColumnName = "category_name")
   private ExpenseCategory category;
 
   @Column

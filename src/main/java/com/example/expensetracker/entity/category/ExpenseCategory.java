@@ -30,8 +30,8 @@ public class ExpenseCategory implements  Serializable {
   @Column(nullable = false, unique = true, name = "category_name")
   @Enumerated(EnumType.STRING)
   private CategoryName categoryName;
-
-  @OneToMany(mappedBy = "category")
-  private List<Expense> expenses;
+//
+//  @OneToMany(mappedBy = "category")
+//  private List<Expense> expenses;
 
 }
