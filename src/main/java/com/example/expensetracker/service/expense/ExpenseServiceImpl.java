@@ -14,11 +14,9 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.solr.core.mapping.SolrDocument;
 import org.springframework.stereotype.Service;
 
 import com.example.expensetracker.controller.exception.InvalidExpenseCategoryException;
@@ -48,11 +46,10 @@ public class ExpenseServiceImpl implements ExpenseService {
   private CloudSolrClient cloudSolrClient;
 
   @Override
-  @Cacheable(value = "expenseCache", key = "'expense-' + #expenseWebRequest.username")
+//  @Cacheable(value = "expenseCache", key = "'expense-' + #expenseWebRequest.username")
   @Transactional
   public Expense addExpense(CreateExpenseWebRequest expenseWebRequest) throws IOException, SolrServerException {
 
-    //TODO need to refractor this code as its giving stack overflow error
     if (Objects.nonNull(expenseWebRequest)) {
       Expense expense = new Expense();
       BeanUtils.copyProperties(expenseWebRequest, expense);
@@ -84,7 +81,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     SolrInputDocument solrInputDocument = new SolrInputDocument();
     solrInputDocument.setField(ExpenseSolrFieldNames.PAYMENT_TYPE, expense.getPaymentType().name());
     solrInputDocument.setField(ExpenseSolrFieldNames.AMOUNT, expense.getAmount());
-    solrInputDocument.setField(ExpenseSolrFieldNames.CATEGORY, expense.getCategory().getCategoryName());
+    solrInputDocument.setField(ExpenseSolrFieldNames.CATEGORY, expense.getCategory().getCategoryName().name());
     solrInputDocument.setField(ExpenseSolrFieldNames.CREATED_BY, expense.getCreatedBy());
     solrInputDocument.setField(ExpenseSolrFieldNames.CREATED_DATE, expense.getCreatedDate());
     solrInputDocument.setField(ExpenseSolrFieldNames.DESCRIPTION, expense.getDescription());
