@@ -83,7 +83,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     solrInputDocument.setField(ExpenseSolrFieldNames.AMOUNT, expense.getAmount());
     solrInputDocument.setField(ExpenseSolrFieldNames.CATEGORY, expense.getCategory().getCategoryName().name());
     solrInputDocument.setField(ExpenseSolrFieldNames.CREATED_BY, expense.getCreatedBy());
+    solrInputDocument.setField(ExpenseSolrFieldNames.UPDATED_BY, expense.getCreatedBy());
     solrInputDocument.setField(ExpenseSolrFieldNames.CREATED_DATE, expense.getCreatedDate());
+    solrInputDocument.setField(ExpenseSolrFieldNames.UPDATED_DATE, expense.getUpdatedDate());
     solrInputDocument.setField(ExpenseSolrFieldNames.DESCRIPTION, expense.getDescription());
     solrInputDocument.setField(ExpenseSolrFieldNames.MONTH, expense.getMonth().name());
     return solrInputDocument;
