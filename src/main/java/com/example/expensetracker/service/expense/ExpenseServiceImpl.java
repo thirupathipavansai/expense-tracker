@@ -65,13 +65,15 @@ public class ExpenseServiceImpl implements ExpenseService {
       expense.setCreatedDate(currentDate.toString());
       //      log.info("Saving expense {} ", expense);
       expenseRepository.save(expense);
+      /*
+       // TODO need to update in solr in future
       try {
         SolrInputDocument solrInputDocument1 = getExpenseSolrDocument(expense);
         cloudSolrClient.add(solrInputDocument1);
         cloudSolrClient.commit();
       } catch (SolrServerException b) {
         System.out.println("Exception : " + b);
-      }
+      }*/
       return expense; // Return the saved Expense object.
     }
     return null; // Return null when expenseWebRequest is null.
