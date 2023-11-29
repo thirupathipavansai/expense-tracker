@@ -78,6 +78,21 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>2.4.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version> <!-- Dependency to use good functions while dealing with collections -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.1.0</version> <!-- Dependency to deal with Excel operations -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

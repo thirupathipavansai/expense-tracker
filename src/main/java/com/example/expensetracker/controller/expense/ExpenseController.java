@@ -1,7 +1,11 @@
 package com.example.expensetracker.controller.expense;
 
+import static com.example.expensetracker.controller.expense.ExpenseControllerApiPath.DOWNLOAD_EXPENSE;
+import static com.example.expensetracker.controller.expense.ExpenseControllerApiPath.GET_EXPENSES;
+
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +73,22 @@ public class ExpenseController {
       @RequestParam("createdBy") String createdBy,
       @PageableDefault(size = 10, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
     return expenseService.getExpensesByMonth(createdBy, month, pageable);
+  }
+
+
+  @RequestMapping(value = GET_EXPENSES, method = RequestMethod.GET)
+  @Operation(description = "Get list of all expenses", summary = "Get list of all expenses")
+  public Page<Expense> getAllExpenses(@RequestParam("createdBy") String createdBy,
+      @PageableDefault(size = 10, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
+    return expenseService.getExpensesByUserName(createdBy, pageable);
+  }
+
+  @RequestMapping(value = DOWNLOAD_EXPENSE, method = RequestMethod.GET)
+  @Operation(description = "Get list of all expenses", summary = "Get list of all expenses")
+  public BaseResponse downloadAllExpenses(HttpServletResponse servletResponse,
+      @RequestParam("createdBy") String createdBy, @RequestParam(value = "month") Month month) throws Exception {
+    expenseService.downloadExpense(createdBy, month, servletResponse);
+    return new BaseResponse(true, null, null);
   }
 
 }
