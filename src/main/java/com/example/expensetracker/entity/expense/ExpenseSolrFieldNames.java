@@ -6,7 +6,9 @@ public interface ExpenseSolrFieldNames {
   String MONTH = "month";
   String CATEGORY = "category";
   String AMOUNT = "amount";
-  String CREATED_DATE = "createdDate";
-  String CREATED_BY = "createdBy";
+  String CREATED_DATE = "created_date";
+  String UPDATED_DATE = "updated_date";
+  String CREATED_BY = "created_by";
+  String UPDATED_BY = "updated_by";
 
 }

@@ -37,7 +37,7 @@ public class Expense implements Serializable {
   private static final long serialVersionUID = 3964630884707812925L;
   @Id
   @Column
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Column
@@ -60,7 +60,7 @@ public class Expense implements Serializable {
   private PaymentType paymentType;
 
   @Column
-  private String Description;
+  private String description;
 
   @Column
   @Enumerated(EnumType.STRING)
