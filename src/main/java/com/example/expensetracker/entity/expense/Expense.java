@@ -40,7 +40,7 @@ public class Expense implements Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column
+  @Column(name = "created_date")
   @CreatedDate
   private String createdDate;
 

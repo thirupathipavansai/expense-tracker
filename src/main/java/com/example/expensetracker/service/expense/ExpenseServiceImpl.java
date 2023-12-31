@@ -3,8 +3,11 @@ package com.example.expensetracker.service.expense;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -144,6 +147,19 @@ public class ExpenseServiceImpl implements ExpenseService {
       SXSSFWorkbook workbook = generateWorkbookForExpense(HEADER_LIST, expenses);
       generateFileTemplate("Expenses", workbook, servletResponse);
     }
+  }
+
+  @Override
+  public void deleteExpense(String createdBy, List<Long> Ids) {
+    List<Expense> expenses = expenseRepository.findByCreatedByAndIdIn(createdBy, Ids);
+    if (CollectionUtils.isNotEmpty(expenses)) {
+      expenseRepository.deleteAllById(Ids);
+    }
+  }
+
+  @Override
+  public List<Object> getExpenseAndScale(String createdBy, Long year) {
+    return expenseRepository.getTotalExpensesByUserAndYear(createdBy, year);
   }
 
 

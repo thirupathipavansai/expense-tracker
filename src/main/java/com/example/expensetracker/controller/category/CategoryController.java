@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.expensetracker.BaseResponse;
 import com.example.expensetracker.annotaion.CreateCategoryValid;
+import com.example.expensetracker.entity.category.CategoryName;
 import com.example.expensetracker.entity.category.ExpenseCategory;
 import com.example.expensetracker.request.category.CreateCategoryWebRequest;
 import com.example.expensetracker.service.category.CategoryService;
@@ -35,13 +36,26 @@ public class CategoryController {
 
   @RequestMapping(method = RequestMethod.POST, value = CategoryApiPath.ADD_CATEGORY)
   @Operation(summary = "Create Expense Category", description = "Creating Expense category")
-  public BaseResponse addCategory(@RequestBody @Valid @CreateCategoryValid(message = "Invalid Category Name") CreateCategoryWebRequest createCategoryWebRequest) {
+  public BaseResponse addCategory(@RequestBody @Valid @CreateCategoryValid(message = "Invalid Category Name")
+      CreateCategoryWebRequest createCategoryWebRequest) {
     log.info("Creating Category with request {} ", createCategoryWebRequest);
     ExpenseCategory expenseCategory = categoryService.addExpenseCategory(createCategoryWebRequest);
     if (Objects.nonNull(expenseCategory)) {
-      return new BaseResponse(true, null, null);
+      return new BaseResponse(true, null, null, null);
     }
-    return new BaseResponse(false, DUPLICATE_CATEGORY_NAME, null);
+    return new BaseResponse(false, DUPLICATE_CATEGORY_NAME, null, null);
+  }
+
+  @RequestMapping(method = RequestMethod.GET, value = CategoryApiPath.GET_ALL_CATEGORY)
+  @Operation(summary = "Get all categories", description = "Get All categories that exists as of now")
+  public BaseResponse getAllCategories() {
+    return new BaseResponse(true, null, null, categoryService.getAllCategories());
+  }
+
+  @RequestMapping(method = RequestMethod.GET, value = CategoryApiPath.GET_ALL_SUPPORTED_CATEGORY)
+  @Operation(summary = "Get all SUPPORTED categories", description = "Get All Supported categories ")
+  public BaseResponse getAllSupportedCategories() {
+    return new BaseResponse(true, null, null, CategoryName.values());
   }
 
 }

@@ -1,5 +1,6 @@
 package com.example.expensetracker.controller.expense;
 
+import static com.example.expensetracker.controller.expense.ExpenseControllerApiPath.DELETE_EXPENSE;
 import static com.example.expensetracker.controller.expense.ExpenseControllerApiPath.DOWNLOAD_EXPENSE;
 import static com.example.expensetracker.controller.expense.ExpenseControllerApiPath.GET_EXPENSES;
 
@@ -23,6 +24,7 @@ import com.example.expensetracker.BaseResponse;
 import com.example.expensetracker.entity.expense.Expense;
 import com.example.expensetracker.entity.expense.Month;
 import com.example.expensetracker.request.CreateExpenseWebRequest;
+import com.example.expensetracker.request.DeleteExpenseWebRequest;
 import com.example.expensetracker.request.UpdateExpenseWebRequest;
 import com.example.expensetracker.service.expense.ExpenseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,12 +47,12 @@ public class ExpenseController {
       Expense expense1 = new Expense();
       expense1 = expenseService.addExpense(expense);
       if (Objects.nonNull(expense1)) {
-        return new BaseResponse(true, "", "");
+        return new BaseResponse(true, "", "", expense1);
       }
     } catch (Exception e) {
       log.info("Error while adding Expense {} ", e.getMessage());
     }
-    return new BaseResponse(false, "Creating expense failed", "");
+    return new BaseResponse(false, "Creating expense failed", "", null);
   }
 
   @RequestMapping(value = ExpenseControllerApiPath.UPDATE, method = RequestMethod.PUT)
@@ -59,12 +61,12 @@ public class ExpenseController {
     try {
       Expense expense1 = expenseService.updateExpense(request);
       if (Objects.nonNull(expense1)) {
-        return new BaseResponse(true, "", "");
+        return new BaseResponse(true, "", "", null);
       }
     } catch (Exception e) {
       log.info("Error while adding Expense {} ", e.getMessage());
     }
-    return new BaseResponse(false, "Updating expense Failed", "");
+    return new BaseResponse(false, "Updating expense Failed", "", null);
   }
 
   @RequestMapping(value = ExpenseControllerApiPath.GET_EXPENSES_BY_MONTH, method = RequestMethod.GET)
@@ -88,7 +90,19 @@ public class ExpenseController {
   public BaseResponse downloadAllExpenses(HttpServletResponse servletResponse,
       @RequestParam("createdBy") String createdBy, @RequestParam(value = "month") Month month) throws Exception {
     expenseService.downloadExpense(createdBy, month, servletResponse);
-    return new BaseResponse(true, null, null);
+    return new BaseResponse(true, null, null, null);
+  }
+
+  @RequestMapping(value = DELETE_EXPENSE, method = RequestMethod.POST)
+  @Operation(description = "Delete an Expense", summary = "Deleting Expense")
+  public BaseResponse deleteExpense(@RequestBody DeleteExpenseWebRequest deleteExpenseWebRequest) {
+    expenseService.deleteExpense(deleteExpenseWebRequest.getCreatedBy(), deleteExpenseWebRequest.getIds());
+    return new BaseResponse(true, null, null, null);
+  }
+
+  @RequestMapping(value = ExpenseControllerApiPath.EXPENSES_BY_MONTH, method = RequestMethod.GET)
+  public BaseResponse getE(@RequestParam("createdBy") String createdBy, @RequestParam("year") Long year) {
+    return new BaseResponse(true, null, null, expenseService.getExpenseAndScale(createdBy, year));
   }
 
 }

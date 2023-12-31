@@ -1,6 +1,7 @@
 package com.example.expensetracker.service.expense;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -54,5 +55,19 @@ public interface ExpenseService {
    * Download Expense
    */
    void downloadExpense(String createdBy, Month month, HttpServletResponse servletResponse) throws Exception;
+
+  /**
+   *
+   * @param createdBy
+   * @param Ids
+   */
+  void deleteExpense(String createdBy, List<Long> Ids);
+
+  /**
+   * GET expenses sum and scale to display
+   * @param createdBy
+   * @param year
+   */
+  List<Object> getExpenseAndScale(String createdBy, Long year);
 }
 

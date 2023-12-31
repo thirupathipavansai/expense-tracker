@@ -1,7 +1,11 @@
 package com.example.expensetracker.service.category.Impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +37,15 @@ public class CategoryServiceImpl implements CategoryService {
       return expenseCategory;
     }
     return null;
+  }
+
+  @Override
+  public List<String> getAllCategories() {
+    List<ExpenseCategory> expenseCategories = expenseCategoryRepository.findAll();
+    if (CollectionUtils.isNotEmpty(expenseCategories)) {
+      return expenseCategories.stream().map(expenseCategory -> expenseCategory.getCategoryName().name())
+          .collect(Collectors.toList());
+    }
+    return new ArrayList<>();
   }
 }

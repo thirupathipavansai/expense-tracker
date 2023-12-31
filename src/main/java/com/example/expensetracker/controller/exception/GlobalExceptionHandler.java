@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GlobalExceptionHandler implements ErrorController {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler({ConstraintViolationException.class, RuntimeException.class})
+  @ExceptionHandler(value = {ConstraintViolationException.class})
   public BaseResponse constraintViolationException(ConstraintViolationException e) {
     log.error(e.getMessage(), e);
     BaseResponse response = new BaseResponse();
